@@ -52,3 +52,26 @@ paths:
         type: array
         items:
           type: number
+
+  /dfa/{array}:
+    post:
+      summary: Generate computation restult for DFA
+      description: 去趋势波动分析
+      operationId: solarcalhub.post_dfa
+      produces:
+      - text/plain;
+      responses:
+        200:
+          description: dfa response
+          schema:
+            type: string
+          examples:
+            "text/plain": "11.11"
+      parameters:
+      - name: array
+        in: path
+        description: array to calulate.
+        required: true
+        type: array
+        items:
+          type: number

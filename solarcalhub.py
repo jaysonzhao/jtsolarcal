@@ -3,6 +3,7 @@
 import connexion
 from connexion import NoContent
 import numpy as np
+from dfa import dfa
 
 #计算平均值
 def post_mean(array: list):
@@ -30,6 +31,14 @@ def post_rocsd(array: list):
         except:
             return NoContent, 404
 
+#计算DFA 去趋势波动分析指数
+def post_dfa(array: list):
+        try:
+            scales, fluct, alpha = dfa(array)
+            calresult = alpha
+            return '{result}'.format(result=calresult)
+        except:
+            return NoContent, 404
 
 if __name__ == '__main__':
     app = connexion.FlaskApp(__name__, port=9090, specification_dir='swagger/')
