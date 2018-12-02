@@ -7,23 +7,43 @@ info:
 basePath: /solarcalhub
 
 paths:
-  /greeting/{name}:
+  /mean/{array}:
     post:
-      summary: Generate computation restult
-      description: Generates a required computation result.
-      operationId: hello.post_greeting
+      summary: Generate computation restult for mean
+      description: 平均值
+      operationId: solarcalhub.post_mean
       produces:
         - text/plain;
       responses:
         200:
-          description: greeting response
+          description: mean response
           schema:
             type: string
           examples:
-            "text/plain": "Hello John"
+            "text/plain": "11.11"
       parameters:
-        - name: name
+        - name: array
           in: path
-          description: Name of the person to greet.
+          description: array to calulate.
           required: true
           type: string
+  /rocsd/{array}:
+    post:
+      summary: Generate computation restult for roc standard deviation
+      description: 变化率标准差
+      operationId: solarcalhub.post_rocsd
+      produces:
+      - text/plain;
+      responses:
+        200:
+          description: rocsd response
+          schema:
+            type: string
+          examples:
+            "text/plain": "11.11"
+      parameters:
+      - name: array
+        in: path
+        description: array to calulate.
+        required: true
+        type: string
