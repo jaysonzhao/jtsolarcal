@@ -18,7 +18,7 @@ paths:
         200:
           description: mean response
           schema:
-            type: string
+            type: number
           examples:
             "text/plain": "11.11"
       parameters:
@@ -26,7 +26,10 @@ paths:
           in: path
           description: array to calulate.
           required: true
-          type: string
+          type: array
+          items:
+            type: number
+
   /rocsd/{array}:
     post:
       summary: Generate computation restult for roc standard deviation
@@ -46,4 +49,6 @@ paths:
         in: path
         description: array to calulate.
         required: true
-        type: string
+        type: array
+        items:
+          type: number

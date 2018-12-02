@@ -5,37 +5,31 @@ from connexion import NoContent
 import numpy as np
 
 #计算平均值
-def post_mean(array: str) -> str:
-    inputstr = array.split(",")
-    arr = []
-    for numi in inputstr:
+def post_mean(array: list):
         try:
-            arr.append(float(numi))
-        except ValueError:
+            # 求均值
+            calresult = np.mean(array)
+            return '{result}'.format(result=calresult)
+        except:
             return NoContent, 404
-    # 求均值
-    calresult = np.mean(arr)
-    return '{result}'.format(result=calresult)
+
 
 #计算变化率标准差
-def post_rocsd(array: str) -> str:
-    inputstr = array.split(",")
-    arr = []
-    for numi in inputstr:
+def post_rocsd(array: list):
         try:
-            arr.append(float(numi))
-        except ValueError:
+            # 计算变化率
+            result = []
+            it = iter(array)
+            n1 = float(it.__next__())
+            for n2 in it:
+                result.append((n2 - n1) / n1)
+                n1 = float(n2)
+            # 求变化率标准差
+            calresult = np.std(result, ddof=1)
+            return '{result}'.format(result=calresult)
+        except:
             return NoContent, 404
-    # 计算变化率
-    result = []
-    it = iter(arr)
-    n1 = float(it.__next__())
-    for n2 in it:
-        result.append((n2 - n1) / n1)
-        n1 = float(n2)
-    # 求变化率标准差
-    calresult = np.std(result, ddof=1)
-    return '{result}'.format(result=calresult)
+
 
 if __name__ == '__main__':
     app = connexion.FlaskApp(__name__, port=9090, specification_dir='swagger/')
