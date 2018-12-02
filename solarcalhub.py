@@ -4,7 +4,7 @@ import connexion
 from connexion import NoContent
 import numpy as np
 
-
+#计算平均值
 def post_mean(array: str) -> str:
     inputstr = array.split(",")
     arr = []
@@ -17,6 +17,7 @@ def post_mean(array: str) -> str:
     calresult = np.mean(arr)
     return '{result}'.format(result=calresult)
 
+#计算变化率标准差
 def post_rocsd(array: str) -> str:
     inputstr = array.split(",")
     arr = []
