@@ -75,3 +75,26 @@ paths:
         type: array
         items:
           type: number
+
+  /var/{array}:
+    post:
+      summary: Generate computation restult for variation
+      description: 方差计算
+      operationId: solarcalhub.post_var
+      produces:
+      - text/plain;
+      responses:
+        200:
+          description: var response
+          schema:
+            type: number
+          examples:
+            "text/plain": "11.11"
+      parameters:
+      - name: array
+        in: path
+        description: array to calulate.
+        required: true
+        type: array
+        items:
+          type: number

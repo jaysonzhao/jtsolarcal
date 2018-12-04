@@ -40,6 +40,14 @@ def post_dfa(array: list):
         except:
             return NoContent, 404
 
+#计算方差
+def post_var(array: list):
+        try:
+            calresult = np.var(array)
+            return '{result}'.format(result=calresult)
+        except:
+            return NoContent, 404
+
 if __name__ == '__main__':
     app = connexion.FlaskApp(__name__, port=9090, specification_dir='swagger/')
     app.add_api('solarcalhub-api.yaml', arguments={'title': 'Solar Calculation Hub'})
