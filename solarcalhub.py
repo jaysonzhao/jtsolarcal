@@ -19,6 +19,15 @@ def post_mean(array: list):
         return NoContent, 404
 
 
+# 计算标准差
+def post_std(array: list):
+    try:
+        # 求标准差
+        calresult = np.std(array)
+        return '{result}'.format(result=calresult)
+    except:
+        return NoContent, 404
+
 # 计算变化率标准差
 def post_rocsd(array: list):
     try:

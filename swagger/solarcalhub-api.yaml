@@ -30,6 +30,29 @@ paths:
         items:
           type: number
 
+  /std/{array}:
+    post:
+      summary: 计算标准差
+      description: 标准差
+      operationId: solarcalhub.post_std
+      produces:
+      - text/plain;
+      responses:
+        200:
+          description: std response
+          schema:
+            type: number
+          examples:
+            "text/plain": "11.11"
+      parameters:
+      - name: array
+        in: path
+        description: array to calulate.
+        required: true
+        type: array
+        items:
+          type: number
+
   /rocsd/{array}:
     post:
       summary: 计算变化率的标准差
