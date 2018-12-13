@@ -5,6 +5,7 @@ import numpy as np
 import pandas as pd
 from connexion import NoContent
 from arch import arch_model  # GARCH(1,1)
+from scipy import stats
 from dfa import dfa
 
 
@@ -93,6 +94,18 @@ def post_meansqt(array: list):
         return '{result}'.format(result=calresult)
     except:
         return NoContent, 404
+
+# 计算偏度
+def post_skew(array: list):
+    try:
+        # 偏度 衡量随机分布的不均衡性，偏度 = 0，数值相对均匀的分布在两侧
+        calresult = stats.skew(array)
+        return '{result}'.format(result=calresult)
+    except:
+        return NoContent, 404
+
+
+
 
 if __name__ == '__main__':
     app = connexion.FlaskApp(__name__, port=9090, specification_dir='swagger/')

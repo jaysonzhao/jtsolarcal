@@ -52,6 +52,28 @@ paths:
         type: array
         items:
           type: number
+  /skew/{array}:
+    post:
+      summary: 计算偏度
+      description: 衡量随机分布的不均衡性，偏度 = 0，数值相对均匀的分布在两侧
+      operationId: solarcalhub.post_skew
+      produces:
+      - text/plain;
+      responses:
+        200:
+          description: skew response
+          schema:
+            type: string
+          examples:
+            "text/plain": "11.11"
+      parameters:
+      - name: array
+        in: path
+        description: array to calulate.
+        required: true
+        type: array
+        items:
+          type: number
 
   /dfa/{array}:
     post:
