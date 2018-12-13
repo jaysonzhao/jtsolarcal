@@ -53,6 +53,30 @@ paths:
         items:
           type: number
 
+  /logvolatility/{array}:
+    post:
+      summary: 计算对数振荡率
+      description: 对数振荡率
+      operationId: solarcalhub.post_logVolatility
+      produces:
+      - text/plain;
+      responses:
+        200:
+          description: logVolatility response
+          schema:
+            type: number
+          examples:
+            "text/plain": "11.11"
+      parameters:
+      - name: array
+        in: path
+        description: array to calulate.
+        required: true
+        type: array
+        items:
+          type: number
+
+
   /rocsd/{array}:
     post:
       summary: 计算变化率的标准差

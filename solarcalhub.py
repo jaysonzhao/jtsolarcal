@@ -28,6 +28,17 @@ def post_std(array: list):
     except:
         return NoContent, 404
 
+# 计算对数振荡率
+def post_logVolatility(array: list):
+    try:
+        # 求对数振荡率
+        logarr = np.log(array)
+        calresult = np.std(logarr, ddof=1) / np.mean(logarr) / np.sqrt(1 / len(array))
+
+        return '{result}'.format(result=calresult)
+    except:
+        return NoContent, 404
+
 # 计算变化率标准差
 def post_rocsd(array: list):
     try:
