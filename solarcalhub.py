@@ -105,6 +105,14 @@ def post_skew(array: list):
         return NoContent, 404
 
 
+# 计算峰度
+def post_kurtosis(array: list):
+    try:
+        # 峰度 概率密度在均值处峰值高低的特征
+        calresult = stats.kurtosis(array)
+        return '{result}'.format(result=calresult)
+    except:
+        return NoContent, 404
 
 
 if __name__ == '__main__':

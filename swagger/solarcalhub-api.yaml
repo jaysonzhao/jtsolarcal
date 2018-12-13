@@ -52,6 +52,7 @@ paths:
         type: array
         items:
           type: number
+
   /skew/{array}:
     post:
       summary: 计算偏度
@@ -62,6 +63,29 @@ paths:
       responses:
         200:
           description: skew response
+          schema:
+            type: string
+          examples:
+            "text/plain": "11.11"
+      parameters:
+      - name: array
+        in: path
+        description: array to calulate.
+        required: true
+        type: array
+        items:
+          type: number
+
+  /kurtosis/{array}:
+    post:
+      summary: 计算峰度
+      description: 概率密度在均值处峰值高低的特征
+      operationId: solarcalhub.post_kurtosis
+      produces:
+      - text/plain;
+      responses:
+        200:
+          description: kurtosis response
           schema:
             type: string
           examples:
