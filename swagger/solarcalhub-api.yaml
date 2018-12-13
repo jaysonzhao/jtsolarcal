@@ -9,7 +9,7 @@ basePath: /solarcalhub
 paths:
   /mean/{array}:
     post:
-      summary: Generate computation restult for mean
+      summary: 计算平均值
       description: 平均值
       operationId: solarcalhub.post_mean
       produces:
@@ -32,8 +32,8 @@ paths:
 
   /rocsd/{array}:
     post:
-      summary: Generate computation restult for roc standard deviation
-      description: 变化率标准差
+      summary: 计算变化率的标准差
+      description: 变化率标准差。变化率在中心取点两边的变化为原理。
       operationId: solarcalhub.post_rocsd
       produces:
       - text/plain;
@@ -55,8 +55,8 @@ paths:
 
   /dfa/{array}:
     post:
-      summary: Generate computation restult for DFA
-      description: 去趋势波动分析
+      summary: 去趋势波动分析DFA
+      description: 去趋势波动分析。 <0.5, <1 , 1<
       operationId: solarcalhub.post_dfa
       produces:
       - text/plain;
@@ -78,7 +78,7 @@ paths:
 
   /var/{array}:
     post:
-      summary: Generate computation restult for variation
+      summary: 方差
       description: 方差计算
       operationId: solarcalhub.post_var
       produces:
@@ -99,10 +99,56 @@ paths:
         items:
           type: number
 
+  /maxsqt/{array}:
+    post:
+      summary: 计算最大波动率
+      description: 最大波动率计算
+      operationId: solarcalhub.post_maxsqt
+      produces:
+      - text/plain;
+      responses:
+        200:
+          description: var response
+          schema:
+            type: number
+          examples:
+            "text/plain": "11.11"
+      parameters:
+      - name: array
+        in: path
+        description: array to calulate.
+        required: true
+        type: array
+        items:
+          type: number
+
+  /meansqt/{array}:
+    post:
+      summary: 计算平均波动率
+      description: 平均波动率计算
+      operationId: solarcalhub.post_meansqt
+      produces:
+      - text/plain;
+      responses:
+        200:
+          description: var response
+          schema:
+            type: number
+          examples:
+            "text/plain": "11.11"
+      parameters:
+      - name: array
+        in: path
+        description: array to calulate.
+        required: true
+        type: array
+        items:
+          type: number
+
   /rollingvarmax:
     post:
-      summary: Generate computation restult for rolling variation max
-      description: 滚动方差最大值计算
+      summary: 滚动方差最大值计算
+      description: 滚动方差最大值计算，以窗口设置的个数进行顺序滚动
       operationId: solarcalhub.post_rollingvarmax
       produces:
       - text/plain;
@@ -130,8 +176,8 @@ paths:
 
   /rollingvarmean:
     post:
-      summary: Generate computation restult for rolling variation max
-      description: 滚动方差平均计算
+      summary: 滚动方差平均值计算
+      description: 滚动方差平均计算，以窗口设置的个数进行顺序滚动
       operationId: solarcalhub.post_rollingvarmean
       produces:
       - text/plain;

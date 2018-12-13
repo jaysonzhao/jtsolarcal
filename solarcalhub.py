@@ -4,7 +4,7 @@ import connexion
 import numpy as np
 import pandas as pd
 from connexion import NoContent
-
+from arch import arch_model  # GARCH(1,1)
 from dfa import dfa
 
 
@@ -67,6 +67,30 @@ def post_rollingvarmean(array: list, window: int):
     try:
         calresult = pd.Series(array).rolling(window=window, center=False).var(ddof=1)
         return '{result}'.format(result=np.mean(calresult))
+    except:
+        return NoContent, 404
+
+# 计算最大波动率
+def post_maxsqt(array: list):
+    try:
+        # 计算波动率 from GARCH(1,1)
+        am = arch_model(array)
+        res = am.fit()
+        sqt_h = res.conditional_volatility
+        calresult = np.max(sqt_h)
+        return '{result}'.format(result=calresult)
+    except:
+        return NoContent, 404
+
+# 计算平均波动率
+def post_meansqt(array: list):
+    try:
+        # 计算波动率 from GARCH(1,1)
+        am = arch_model(array)
+        res = am.fit()
+        sqt_h = res.conditional_volatility
+        calresult = np.mean(sqt_h)
+        return '{result}'.format(result=calresult)
     except:
         return NoContent, 404
 
