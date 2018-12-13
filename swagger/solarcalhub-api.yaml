@@ -13,7 +13,7 @@ paths:
       description: 平均值
       operationId: solarcalhub.post_mean
       produces:
-        - text/plain;
+      - text/plain;
       responses:
         200:
           description: mean response
@@ -22,13 +22,13 @@ paths:
           examples:
             "text/plain": "11.11"
       parameters:
-        - name: array
-          in: path
-          description: array to calulate.
-          required: true
-          type: array
-          items:
-            type: number
+      - name: array
+        in: path
+        description: array to calulate.
+        required: true
+        type: array
+        items:
+          type: number
 
   /rocsd/{array}:
     post:
@@ -98,3 +98,61 @@ paths:
         type: array
         items:
           type: number
+
+  /rollingvarmax:
+    post:
+      summary: Generate computation restult for rolling variation max
+      description: 滚动方差最大值计算
+      operationId: solarcalhub.post_rollingvarmax
+      produces:
+      - text/plain;
+      responses:
+        200:
+          description: rolling varmax response
+          schema:
+            type: number
+          examples:
+            "text/plain": "11.11"
+      parameters:
+      - name: array
+        in: query
+        description: array to calulate.
+        required: true
+        type: array
+        items:
+          type: number
+      - name: window
+        in: query
+        description: 窗口大小（个数）
+        type: integer
+        minimum: 0
+        default: 600
+
+  /rollingvarmean:
+    post:
+      summary: Generate computation restult for rolling variation max
+      description: 滚动方差平均计算
+      operationId: solarcalhub.post_rollingvarmean
+      produces:
+      - text/plain;
+      responses:
+        200:
+          description: rolling varmean response
+          schema:
+            type: number
+          examples:
+            "text/plain": "11.11"
+      parameters:
+      - name: array
+        in: query
+        description: array to calulate.
+        required: true
+        type: array
+        items:
+          type: number
+      - name: window
+        in: query
+        description: 窗口大小（个数）
+        type: integer
+        minimum: 0
+        default: 600
