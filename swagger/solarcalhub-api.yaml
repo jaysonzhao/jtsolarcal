@@ -6,6 +6,8 @@ info:
 
 basePath: /solarcalhub
 
+host: {{host}}
+
 paths:
   /mean/{array}:
     post:

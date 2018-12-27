@@ -3,6 +3,7 @@
 import connexion
 import numpy as np
 import pandas as pd
+import socket
 from connexion import NoContent
 from arch import arch_model  # GARCH(1,1)
 from scipy import stats
@@ -142,5 +143,6 @@ def post_calpoint(value: list, expect: list, direction: list):
 
 if __name__ == '__main__':
     app = connexion.FlaskApp(__name__, port=9090, specification_dir='swagger/')
-    app.add_api('solarcalhub-api.yaml', arguments={'title': 'Solar Calculation Hub'})
+    hostname = socket.gethostname()
+    app.add_api('solarcalhub-api.yaml', arguments={'title': 'Solar Calculation Hub', 'host': hostname})
     app.run()
