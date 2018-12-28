@@ -5,6 +5,7 @@ import os
 import connexion
 import numpy as np
 import matplotlib.pyplot as plt
+from flask import send_from_directory
 from sklearn.preprocessing import PolynomialFeatures
 from sklearn.linear_model import LinearRegression, Perceptron
 from sklearn.metrics import mean_squared_error, r2_score
@@ -70,7 +71,7 @@ def post_generatelinear(array: list, batch: str, index: str):
         os.mkdir('graph')
     fig.savefig('graph\\'+batch+index+'linear.png')
     plt.close()
-    return 1
+    return batch+index+'linear.png'
 
 #生成离散折线
 def post_generategraph(array: list, batch: str, index: str):
@@ -85,10 +86,16 @@ def post_generategraph(array: list, batch: str, index: str):
         os.mkdir('graph')
     fig.savefig('graph\\'+batch+index+'plot.png')
     plt.close()
-    return 1
+    return batch+index+'plot.png'
+
+app = connexion.FlaskApp(__name__, port=9091, specification_dir='swagger/')
+
+@app.route('/graph/<path:filename>')
+def download_file(filename):
+    return send_from_directory('graph\\',
+                               filename, as_attachment=True)
 
 if __name__ == '__main__':
-    app = connexion.FlaskApp(__name__, port=9091, specification_dir='swagger/')
     hostname = socket.gethostname()
     app.add_api('solarcalsupp-api.yaml', arguments={'title': 'Solar Calculation Supplements', 'host': hostname+':9091'})
     app.run()

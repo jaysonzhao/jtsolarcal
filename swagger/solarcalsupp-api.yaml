@@ -55,11 +55,11 @@ paths:
       - text/plain;
       responses:
         200:
-          description: 生成后返回1。异常为0。
+          description: 生成后返回文件名。
           schema:
-            type: number
+            type: string
           examples:
-            "text/plain": "1"
+            "text/plain": "6080carlinear.png"
       parameters:
       - name: array
         in: query
@@ -86,11 +86,11 @@ paths:
       - text/plain;
       responses:
         200:
-          description: 生成后返回1。异常为0。
+          description: 生成后返回文件名。
           schema:
-            type: number
+            type: string
           examples:
-            "text/plain": "1"
+            "text/plain": "5550multiplot.png"
       parameters:
       - name: array
         in: query
