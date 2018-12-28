@@ -68,7 +68,22 @@ def post_generatelinear(array: list, batch: str, index: str):
     plt.plot(X, newy, 'k.')
     if not os.path.exists('graph'):
         os.mkdir('graph')
-    fig.savefig('graph\\'+batch+index+'.png')
+    fig.savefig('graph\\'+batch+index+'linear.png')
+    plt.close()
+    return 1
+
+#生成离散折线
+def post_generategraph(array: list, batch: str, index: str):
+    X = np.array(range(0, len(array), 1)).reshape(-1, 1)
+    y = np.array(array)
+    fig = plt.figure()  # 实例化作图变量
+    plt.title(batch + ',' + index)  # 图像标题
+    plt.xlabel('x')  # x轴文本
+    plt.ylabel('y')  # y轴文本
+    plt.plot(X, y, linewidth=3,color='black',marker='o',markerfacecolor='blue',markersize=3)
+    if not os.path.exists('graph'):
+        os.mkdir('graph')
+    fig.savefig('graph\\'+batch+index+'plot.png')
     plt.close()
     return 1
 
