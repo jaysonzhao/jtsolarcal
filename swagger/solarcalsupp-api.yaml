@@ -45,3 +45,34 @@ paths:
         type: array
         items:
           type: number
+
+  /generatelinear:
+    post:
+      summary: 生成拟合曲线图
+      description: 计算最优多项式拟合，生成曲线图
+      operationId: solarcalsupp.post_generatelinear
+      produces:
+      - text/plain;
+      responses:
+        200:
+          description: 生成后返回1。异常为0。
+          schema:
+            type: number
+          examples:
+            "text/plain": "1"
+      parameters:
+      - name: array
+        in: query
+        description: array to calulate.
+        required: true
+        type: array
+        items:
+          type: number
+      - name: batch
+        in: query
+        description: 批次号
+        type: string
+      - name: index
+        in: query
+        description: 指标名称
+        type: string
