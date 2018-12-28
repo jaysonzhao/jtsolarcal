@@ -1,0 +1,47 @@
+swagger: "2.0"
+
+info:
+  title: "{{title}}"
+  version: "1.0"
+
+basePath: /solarcalsupp
+
+host: {{host}}
+
+paths:
+  /calpoint:
+    post:
+      summary: 计算得分
+      description: 得分落在(-1,1)区间。value 为实际值 ，expect 是期望值， direction 是方向，也可用于权值，负数为越小越好，正数为越大越好.输入可以是序列。
+      operationId: solarcalsupp.post_calpoint
+      produces:
+      - text/plain;
+      responses:
+        200:
+          description: calpoint response
+          schema:
+            type: number
+          examples:
+            "text/plain": "0.02123"
+      parameters:
+      - name: value
+        in: query
+        description: 实际值
+        required: true
+        type: array
+        items:
+          type: number
+      - name: expect
+        in: query
+        description: 期望值
+        required: true
+        type: array
+        items:
+          type: number
+      - name: direction
+        in: query
+        description: 权值向量。绝对值和为1。 -0.3, -0.2, -0.2, -0.3
+        required: true
+        type: array
+        items:
+          type: number
