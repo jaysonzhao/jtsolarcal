@@ -6,6 +6,7 @@ import connexion
 import numpy as np
 import matplotlib.pyplot as plt
 from flask import send_from_directory
+import scipy.signal as signal
 from sklearn.preprocessing import PolynomialFeatures
 from sklearn.linear_model import LinearRegression, Perceptron
 from sklearn.metrics import mean_squared_error, r2_score
@@ -77,11 +78,13 @@ def post_generatelinear(array: list, batch: str, index: str):
 def post_generategraph(array: list, batch: str, index: str):
     X = np.array(range(0, len(array), 1)).reshape(-1, 1)
     y = np.array(array)
+    peakidx, _ = signal.find_peaks(y, prominence=1)
     fig = plt.figure()  # 实例化作图变量
     plt.title(batch + ',' + index)  # 图像标题
     plt.xlabel('x')  # x轴文本
     plt.ylabel('y')  # y轴文本
-    plt.plot(X, y, linewidth=3,color='black',marker='o',markerfacecolor='blue',markersize=3)
+    plt.plot(X, y, linewidth=1, color='blue', marker='o', markerfacecolor='black', markersize=3)
+    plt.plot(peakidx, y[peakidx], color='red', label='peaks')
     if not os.path.exists('graph'):
         os.mkdir('graph')
     fig.savefig('graph\\'+batch+index+'plot.png')
