@@ -96,7 +96,7 @@ app = connexion.FlaskApp(__name__, port=9091, specification_dir='swagger/')
 @app.route('/graph/<path:filename>')
 def download_file(filename):
     return send_from_directory('graph\\',
-                               filename, as_attachment=True)
+                               filename, as_attachment=False)
 
 if __name__ == '__main__':
     hostname = socket.gethostname()
