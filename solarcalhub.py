@@ -108,6 +108,8 @@ def post_maxsqt(array: list):
 def post_maxpeaksqt(array: list):
     try:
         peakidx, _ = signal.find_peaks(array, prominence=1)
+        if len(peakidx) == 0:
+            return '{result}'.format(result=0)
         # 计算波动率 from GARCH(1,1)
         peakarr = np.array(array)
         amt = arch_model(peakarr[peakidx])
