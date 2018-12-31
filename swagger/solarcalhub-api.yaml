@@ -217,6 +217,30 @@ paths:
         items:
           type: number
 
+  /maxpeaksqt/{array}:
+    post:
+      summary: 计算极值点最大波动率
+      description: 极值点最大波动率计算
+      operationId: solarcalhub.post_maxpeaksqt
+      produces:
+      - text/plain;
+      responses:
+        200:
+          description: max peaksqt response
+          schema:
+            type: number
+          examples:
+            "text/plain": "11.11"
+      parameters:
+      - name: array
+        in: path
+        description: array to calulate.
+        required: true
+        type: array
+        items:
+          type: number
+
+
   /meansqt/{array}:
     post:
       summary: 计算平均波动率

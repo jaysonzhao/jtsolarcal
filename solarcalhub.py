@@ -8,7 +8,7 @@ from connexion import NoContent
 from arch import arch_model  # GARCH(1,1)
 from scipy import stats
 from dfa import dfa
-
+import scipy.signal as signal
 
 # 计算平均值
 def post_mean(array: list):
@@ -100,6 +100,20 @@ def post_maxsqt(array: list):
         res = am.fit()
         sqt_h = res.conditional_volatility
         calresult = np.max(sqt_h)
+        return '{result}'.format(result=calresult)
+    except:
+        return NoContent, 404
+
+# 计算极值点最大波动率
+def post_maxpeaksqt(array: list):
+    try:
+        peakidx, _ = signal.find_peaks(array, prominence=1)
+        # 计算波动率 from GARCH(1,1)
+        peakarr = np.array(array)
+        amt = arch_model(peakarr[peakidx])
+        rest = amt.fit()
+        sqt_ht = rest.conditional_volatility
+        calresult = np.max(sqt_ht)
         return '{result}'.format(result=calresult)
     except:
         return NoContent, 404
