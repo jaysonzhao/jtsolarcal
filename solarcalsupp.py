@@ -18,7 +18,7 @@ def post_calpoint(value: list, expect: list, direction: list):
     return calresult
 
 #生成拟合曲线
-def post_generatelinear(array: list, batch: str, index: str):
+def post_generatelinear(array: list, batch: str, index: str, dpi: int):
     X = np.array(range(0, len(array), 1)).reshape(-1, 1)
     y = np.array(array)
     x_train, x_test, y_train, y_test = train_test_split(X, y, test_size=0.5)
@@ -70,12 +70,12 @@ def post_generatelinear(array: list, batch: str, index: str):
     plt.plot(X, newy, 'k.')
     if not os.path.exists('graph'):
         os.mkdir('graph')
-    fig.savefig('graph\\'+batch+index+'linear.png')
+    fig.savefig('graph\\'+batch+index+'linear.png', dpi=dpi)
     plt.close()
     return batch+index+'linear.png'
 
 #生成离散折线
-def post_generategraph(array: list, batch: str, index: str):
+def post_generategraph(array: list, batch: str, index: str, dpi: int):
     X = np.array(range(0, len(array), 1)).reshape(-1, 1)
     y = np.array(array)
     peakidx, _ = signal.find_peaks(y, prominence=1)
@@ -87,7 +87,7 @@ def post_generategraph(array: list, batch: str, index: str):
     plt.plot(peakidx, y[peakidx], color='red', label='peaks')
     if not os.path.exists('graph'):
         os.mkdir('graph')
-    fig.savefig('graph\\'+batch+index+'plot.png')
+    fig.savefig('graph\\'+batch+index+'plot.png', dpi=dpi)
     plt.close()
     return batch+index+'plot.png'
 

@@ -76,6 +76,10 @@ paths:
         in: query
         description: 指标名称
         type: string
+      - name: dpi
+        in: query
+        description: 图片象素
+        type: number
 
   /generategraph:
     post:
@@ -107,3 +111,7 @@ paths:
         in: query
         description: 指标名称
         type: string
+      - name: dpi
+        in: query
+        description: 图片象素
+        type: number
