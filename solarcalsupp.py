@@ -70,9 +70,9 @@ def post_generatelinear(array: list, batch: str, index: str, dpi: int):
     plt.plot(X, newy, 'k.')
     if not os.path.exists('graph'):
         os.mkdir('graph')
-    fig.savefig('graph\\'+batch+index+'linear.png', dpi=dpi)
+    fig.savefig('graph\\'+batch+index+'linear.svg', format='svg', dpi=dpi)
     plt.close()
-    return batch+index+'linear.png'
+    return batch+index+'linear.svg'
 
 #生成离散折线
 def post_generategraph(array: list, batch: str, index: str, dpi: int):
@@ -87,9 +87,9 @@ def post_generategraph(array: list, batch: str, index: str, dpi: int):
     plt.plot(peakidx, y[peakidx], color='red', label='peaks')
     if not os.path.exists('graph'):
         os.mkdir('graph')
-    fig.savefig('graph\\'+batch+index+'plot.png', dpi=dpi)
+    fig.savefig('graph\\'+batch+index+'plot.svg', format='svg', dpi=dpi)
     plt.close()
-    return batch+index+'plot.png'
+    return batch+index+'plot.svg'
 
 app = connexion.FlaskApp(__name__, port=9091, specification_dir='swagger/')
 
