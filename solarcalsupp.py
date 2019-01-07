@@ -4,6 +4,8 @@ import socket
 import os
 import connexion
 import numpy as np
+import matplotlib
+matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 from flask import send_from_directory
 import scipy.signal as signal
