@@ -11,7 +11,7 @@ host: {{host}}
 paths:
   /mean/{array}:
     post:
-      summary: 计算平均值
+      summary: 平均值
       description: 平均值
       operationId: solarcalhub.post_mean
       produces:
@@ -34,7 +34,7 @@ paths:
 
   /std/{array}:
     post:
-      summary: 计算标准差
+      summary: 标准差
       description: 标准差
       operationId: solarcalhub.post_std
       produces:
@@ -57,7 +57,7 @@ paths:
 
   /logvolatility/{array}:
     post:
-      summary: 计算对数振荡率
+      summary: 对数振荡率
       description: 对数振荡率
       operationId: solarcalhub.post_logVolatility
       produces:
@@ -81,7 +81,7 @@ paths:
 
   /rocsd/{array}:
     post:
-      summary: 计算变化率的标准差
+      summary: 变化率标准差
       description: 变化率标准差。变化率在中心取点两边的变化为原理。
       operationId: solarcalhub.post_rocsd
       produces:
@@ -104,7 +104,7 @@ paths:
 
   /skew/{array}:
     post:
-      summary: 计算偏度
+      summary: 偏度
       description: 衡量随机分布的不均衡性，偏度 = 0，数值相对均匀的分布在两侧
       operationId: solarcalhub.post_skew
       produces:
@@ -127,7 +127,7 @@ paths:
 
   /kurtosis/{array}:
     post:
-      summary: 计算峰度
+      summary: 峰度
       description: 概率密度在均值处峰值高低的特征
       operationId: solarcalhub.post_kurtosis
       produces:
@@ -150,7 +150,7 @@ paths:
 
   /dfa/{array}:
     post:
-      summary: 去趋势波动分析DFA
+      summary: DFA
       description: 去趋势波动分析。 <0.5, <1 , 1<
       operationId: solarcalhub.post_dfa
       produces:
@@ -196,7 +196,7 @@ paths:
 
   /maxsqt/{array}:
     post:
-      summary: 计算最大波动率
+      summary: 最大波动率
       description: 最大波动率计算
       operationId: solarcalhub.post_maxsqt
       produces:
@@ -219,7 +219,7 @@ paths:
 
   /maxpeaksqt/{array}:
     post:
-      summary: 计算极值点最大波动率
+      summary: 极值点最大波动率
       description: 极值点最大波动率计算
       operationId: solarcalhub.post_maxpeaksqt
       produces:
@@ -243,7 +243,7 @@ paths:
 
   /meansqt/{array}:
     post:
-      summary: 计算平均波动率
+      summary: 平均波动率
       description: 平均波动率计算
       operationId: solarcalhub.post_meansqt
       produces:
@@ -266,7 +266,7 @@ paths:
 
   /rollingvarmax:
     post:
-      summary: 滚动方差最大值计算
+      summary: 滚动方差最大值
       description: 滚动方差最大值计算，以窗口设置的个数进行顺序滚动
       operationId: solarcalhub.post_rollingvarmax
       produces:
@@ -295,7 +295,7 @@ paths:
 
   /rollingvarmean:
     post:
-      summary: 滚动方差平均值计算
+      summary: 滚动方差平均值
       description: 滚动方差平均计算，以窗口设置的个数进行顺序滚动
       operationId: solarcalhub.post_rollingvarmean
       produces:
