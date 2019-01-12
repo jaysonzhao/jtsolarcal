@@ -115,3 +115,30 @@ paths:
         in: query
         description: 图片象素
         type: number
+  /kmeantrain:
+    post:
+      summary: 训练分类中心值
+      description: 通过数据生成KMEAN分类中心值
+      operationId: solarcalsupp.post_kmeantrain
+      produces:
+      - text/plain;
+      responses:
+        200:
+          description: 返回中心值。
+          schema:
+            type: string
+          examples:
+            "text/plain": "[[  0.96853523   5.74722845   2.12218706]
+                            [  1.33486139  31.45011595  28.29669943]
+                            [  1.97639419 250.33266607   4.90527455]
+                            [  1.16601553  14.93333339  10.53802302]]"
+      parameters:
+      - name: array
+        in: query
+        description: array to calulate.
+        required: true
+        type: string
+      - name: featurename
+        in: query
+        description: 特征列表
+        type: string

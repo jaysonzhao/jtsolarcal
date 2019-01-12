@@ -4,7 +4,9 @@ import socket
 import os
 import connexion
 import numpy as np
+import pandas as pd
 import matplotlib
+
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 from flask import send_from_directory
@@ -13,13 +15,42 @@ from sklearn.preprocessing import PolynomialFeatures
 from sklearn.linear_model import LinearRegression, Perceptron
 from sklearn.metrics import mean_squared_error, r2_score
 from sklearn.model_selection import train_test_split
+from k_means import KMeans
 
 # 计算得分value 为实际值 ，expect 是期望值， direction 是方向，也可用于权值，负数为越小越好，正数为越大越好.输入可以是NP ARRAY
 def post_calpoint(value: list, expect: list, direction: list):
     calresult = np.sum((np.array(value) - np.array(expect)) * np.array(direction) / np.array(expect))
     return calresult
 
-#生成拟合曲线
+
+# 计算kmean训练值中心值
+def post_kmeantrain(array: str, featurename: str):
+    data = pd.read_json(array)
+    columnnames = featurename.split(',')
+    # columnnames = ['DFA', 'violmax', 'maxpeaksqt']
+    num_examples = data.shape[0]
+    # Get features.
+    x_train = data[[iaxis for iaxis in columnnames]].values.reshape((num_examples, len(columnnames)))
+    # print(x_train)
+    # Set K-Means parameters.
+    num_clusters = 4  # Number of clusters into which we want to split our training dataset.
+    max_iterations = 50  # maximum number of training iterations.
+
+    # Init K-Means instance.
+    k_means = KMeans(x_train, num_clusters)
+    # Train K-Means instance.
+    (centroids, closest_centroids_ids) = k_means.train(max_iterations)
+    # print(centroids)
+    data_frame = pd.DataFrame(centroids, columns=[iaxis for iaxis in columnnames])
+    #
+    dfsort = data_frame.sort_values(by=[columnnames[0]])
+    L = [chr(i) for i in range(97, 97 + len(centroids))]
+    dfsort['L'] = pd.Series(L, index=dfsort.index)
+    dfreturn = dfsort.set_index('L', drop=True)
+    # print(dfreturn.to_json(orient="index"))
+    return dfreturn.to_json(orient="index")
+
+# 生成拟合曲线
 def post_generatelinear(array: list, batch: str, index: str, dpi: int):
     X = np.array(range(0, len(array), 1)).reshape(-1, 1)
     y = np.array(array)
@@ -72,11 +103,12 @@ def post_generatelinear(array: list, batch: str, index: str, dpi: int):
     plt.plot(X, newy, 'k.')
     if not os.path.exists('graph'):
         os.mkdir('graph')
-    fig.savefig('graph\\'+batch+index+'linear.png', format='png', dpi=dpi)
+    fig.savefig('graph\\' + batch + index + 'linear.png', format='png', dpi=dpi)
     plt.close()
-    return batch+index+'linear.png'
+    return batch + index + 'linear.png'
 
-#生成离散折线
+
+# 生成离散折线
 def post_generategraph(array: list, batch: str, index: str, dpi: int):
     X = np.array(range(0, len(array), 1)).reshape(-1, 1)
     y = np.array(array)
@@ -89,18 +121,22 @@ def post_generategraph(array: list, batch: str, index: str, dpi: int):
     plt.plot(peakidx, y[peakidx], color='red', label='peaks')
     if not os.path.exists('graph'):
         os.mkdir('graph')
-    fig.savefig('graph\\'+batch+index+'plot.png', format='png', dpi=dpi)
+    fig.savefig('graph\\' + batch + index + 'plot.png', format='png', dpi=dpi)
     plt.close()
-    return batch+index+'plot.png'
+    return batch + index + 'plot.png'
+
 
 app = connexion.FlaskApp(__name__, port=9091, specification_dir='swagger/')
+
 
 @app.route('/graph/<path:filename>')
 def download_file(filename):
     return send_from_directory('graph\\',
                                filename, as_attachment=False)
 
+
 if __name__ == '__main__':
     hostname = socket.gethostname()
-    app.add_api('solarcalsupp-api.yaml', arguments={'title': 'Solar Calculation Supplements', 'host': hostname+':9091'})
+    app.add_api('solarcalsupp-api.yaml',
+                arguments={'title': 'Solar Calculation Supplements', 'host': hostname + ':9091'})
     app.run()
