@@ -1,0 +1,9 @@
+sklearn
+flask
+arch
+matplotlib
+numpy
+pandas
+scipy
+connexion
+connexion[swagger]
