@@ -118,7 +118,7 @@ paths:
 
   /kmeantrain:
     post:
-      summary: 训练分类中心值
+      summary: 训练分类模型
       description: 通过数据生成KMEAN分类中心值
       operationId: solarcalsupp.post_kmeantrain
       produces:
