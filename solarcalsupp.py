@@ -22,6 +22,24 @@ def post_calpoint(value: list, expect: list, direction: list):
     calresult = np.sum((np.array(value) - np.array(expect)) * np.array(direction) / np.array(expect))
     return calresult
 
+# 计算kmean预测值
+def post_kmeanprict(array: str, centermodel: str, featurename: str):
+    testdata = pd.read_json(array, orient='index')
+    centers = pd.read_json(centermodel, orient='index')
+    columnnames = featurename.split(',')
+    testnumber = testdata.shape[0]
+    # Get features.
+    test_train = testdata[[iaxis for iaxis in columnnames]].values.reshape((testnumber, len(columnnames)))
+    centeridmodel = centers[[iaxis for iaxis in columnnames]].values.reshape((len(centers), len(columnnames)))
+    closest_centroids_ids = KMeans.centroids_find_closest(test_train, centeridmodel)
+    tag = []
+    for i in closest_centroids_ids:
+        tag.append(centers.index[int(i[0])])
+
+    testdata['tag'] = pd.Series(tag, index=testdata.index)
+
+    return testdata.to_json(orient="index")
+
 
 # 计算kmean训练值中心值
 def post_kmeantrain(array: str, featurename: str):

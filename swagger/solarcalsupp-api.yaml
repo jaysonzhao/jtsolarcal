@@ -115,6 +115,7 @@ paths:
         in: query
         description: 图片象素
         type: number
+
   /kmeantrain:
     post:
       summary: 训练分类中心值
@@ -128,17 +129,46 @@ paths:
           schema:
             type: string
           examples:
-            "text/plain": "[[  0.96853523   5.74722845   2.12218706]
-                            [  1.33486139  31.45011595  28.29669943]
-                            [  1.97639419 250.33266607   4.90527455]
-                            [  1.16601553  14.93333339  10.53802302]]"
+            "text/plain": '{"a":{"DFA":0.9685352278,"violmax":5.7472284538,"maxpeaksqt":2.1221870644},"b":{"DFA":1.1660155328,"violmax":14.9333333858,"maxpeaksqt":10.5380230189},"c":{"DFA":1.3348613923,"violmax":31.4501159539,"maxpeaksqt":28.2966994282},"d":{"DFA":1.976394192,"violmax":250.3326660686,"maxpeaksqt":4.9052745478}}'
       parameters:
       - name: array
         in: query
-        description: array to calulate.
+        description: array to calulate. '[{"SR_POSITION.post_std":"0.0015988026828093313","CASTER_LINESPEED.post_maxsqt":"0.004896569043872487","CASTER_POOL_LEVEL.post_rollingvarmax":"4.107023411384234e-06","MILLINLETTEMP.post_maxpeaksqt":"0","CASTER_POOL_LEVEL.post_logVolatility":"0.003801594278138662","MILLINLETTEMP.post_dfa":"0.7239542305546263"}]'
         required: true
         type: string
       - name: featurename
         in: query
-        description: 特征列表
+        required: true
+        description: 特征列表. ' SR_POSITION,CASTER_LINESPEED.post_maxsqt,CASTER_POOL_LEVEL.post_rollingvarmax'
+        type: string
+
+  /kmeanprict:
+    post:
+      summary: 获得分类标签
+      description: 通过KMEAN分类中心值模型，得出分类标签
+      operationId: solarcalsupp.post_kmeanprict
+      produces:
+      - text/plain;
+      responses:
+        200:
+          description: 返回带标签分类。
+          schema:
+            type: string
+          examples:
+            "text/plain": '{"5550":{"DFA":0.97951385,"maxpeaksqt":1.67992653,"violmax":5.88352718,"tag":"a"}}'
+      parameters:
+      - name: array
+        in: query
+        description: array to calulate.'{"5550":{"DFA":0.97951385,"violmax":5.88352718,"maxpeaksqt":1.67992653}}'
+        required: true
+        type: string
+      - name: centermodel
+        in: query
+        required: true
+        description: 模型. '{"a":{"DFA":0.9685352278,"violmax":5.7472284538,"maxpeaksqt":2.1221870644},"b":{"DFA":1.1660155328,"violmax":14.9333333858,"maxpeaksqt":10.5380230189},"c":{"DFA":1.3348613923,"violmax":31.4501159539,"maxpeaksqt":28.2966994282},"d":{"DFA":1.976394192,"violmax":250.3326660686,"maxpeaksqt":4.9052745478}}'
+        type: string
+      - name: featurename
+        in: query
+        required: true
+        description: 特征列表. 'SR_POSITION,CASTER_LINESPEED.post_maxsqt,CASTER_POOL_LEVEL.post_rollingvarmax'
         type: string
