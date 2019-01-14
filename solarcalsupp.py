@@ -42,7 +42,7 @@ def post_kmeanprict(array: str, centermodel: str, featurename: str):
 
 
 # 计算kmean训练值中心值
-def post_kmeantrain(array: str, featurename: str):
+def post_kmeantrain(array: str, featurename: str, orderfeature: str):
     data = pd.read_json(array)
     columnnames = featurename.split(',')
     # columnnames = ['DFA', 'violmax', 'maxpeaksqt']
@@ -61,7 +61,7 @@ def post_kmeantrain(array: str, featurename: str):
     # print(centroids)
     data_frame = pd.DataFrame(centroids, columns=[iaxis for iaxis in columnnames])
     #
-    dfsort = data_frame.sort_values(by=[columnnames[0]])
+    dfsort = data_frame.sort_values(by=[orderfeature])
     L = [chr(i) for i in range(97, 97 + len(centroids))]
     dfsort['L'] = pd.Series(L, index=dfsort.index)
     dfreturn = dfsort.set_index('L', drop=True)

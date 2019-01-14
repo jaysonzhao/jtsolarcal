@@ -139,7 +139,12 @@ paths:
       - name: featurename
         in: query
         required: true
-        description: 特征列表. ' SR_POSITION,CASTER_LINESPEED.post_maxsqt,CASTER_POOL_LEVEL.post_rollingvarmax'
+        description: 特征列表. ' SR_POSITION.post_dfa,CASTER_LINESPEED.post_maxsqt,CASTER_POOL_LEVEL.post_rollingvarmax'
+        type: string
+      - name: orderfeature
+        in: query
+        required: true
+        description: 用于排序的特征名. ' SR_POSITION.post_dfa'
         type: string
 
   /kmeanprict:
