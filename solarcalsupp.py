@@ -6,6 +6,7 @@ import connexion
 import numpy as np
 import pandas as pd
 import matplotlib
+import math
 
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
