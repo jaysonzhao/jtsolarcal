@@ -154,7 +154,7 @@ def post_kurtosis(array: list):
 
 
 if __name__ == '__main__':
-    app = connexion.FlaskApp(__name__, port=9090, specification_dir='swagger/')
+    app = connexion.FlaskApp(__name__, port=8080, specification_dir='swagger/')
     hostname = socket.gethostname()
     app.add_api('solarcalhub-api.yaml', arguments={'title': 'Solar Calculation Hub', 'host': hostname+':9090'})
     app.run()
