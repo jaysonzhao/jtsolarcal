@@ -5,5 +5,5 @@ matplotlib
 numpy
 pandas
 scipy
-connexion
 connexion[swagger]
+connexion
