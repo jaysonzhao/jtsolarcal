@@ -8,3 +8,4 @@ scipy
 connexion[swagger]
 connexion
 swagger-ui-py
+flask-swagger-ui
