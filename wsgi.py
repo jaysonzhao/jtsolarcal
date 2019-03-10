@@ -154,6 +154,7 @@ def post_kurtosis(array: list):
 
 
 if __name__ == '__main__':
+    options = {'swagger_path': '/opt/app-root/lib/python3.6/site-packages/swagger_ui'}
     app = connexion.FlaskApp(__name__, port=8080, specification_dir='swagger/')
     hostname = socket.gethostname()
     app.add_api('solarcalhub-api.yaml', arguments={'title': 'Solar Calculation Hub', 'host': hostname+':8080'})
